@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Snake Game</title>
+    <style>
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+          Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        text-align: center;
+      }
+      #appleImg {
+        width: 60px;
+        height: 60px;
+        object-fit: cover;
+      }
+      h1,
+      h2 {
+        background-image: linear-gradient(
+          to right,
+          red,
+          #2c247c,
+          #402dbe,
+          #ff7518,
+          rgb(78, 124, 234),
+          indigo,
+          violet
+        );
+        background-clip: text;
+        -webkit-background-clip: text;
+        color: transparent;
+        background-size: 200%;
+        animation: rainbow 4s ease-out infinite;
+      }
+      @keyframes rainbow {
+        0% {
+          background-position: 0%;
+        }
+        50% {
+          background-position: 75%;
+        }
+        100% {
+          background-position: 100%;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Snake Game</h1>
+    <h2>Score:<span id="score">0</span></h2>
+    <canvas id="gameCanvas"></canvas>
+    <img
+      id="appleImg"
+      src="https://www.google.com/logos/fnbx/snake_arcade/v3/apple_00.png"
+      style="display: none"
+    />
+    <audio id="upSound">
+      <source src="game.mp3" type="audio/mp3" />
+      <source src="game.ogg" type="audio/ogg" />
+    </audio>
+    <audio id="downSound">
+      <source src="down.mp3" type="audio/mp3" />
+      <source src="down.ogg" type="audio/ogg" />
+    </audio>
+    <audio id="leftSound">
+      <source src="left.mp3" type="audio/mp3" />
+      <source src="left.ogg" type="audio/ogg" />
+    </audio>
+    <audio id="rightSound">
+      <source src="right.mp3" type="audio/mp3" />
+      <source src="right.ogg" type="audio/ogg" />
+    </audio>
+    <script>
+      var blockSize = 25;
+      var rows = 20;
+      var cols = 20;
+      var gameCanvas;
+      var drawingObject;
+      var gameOver = false;
+      var gradient;
+
+      var SnakeXPostion = blockSize * 5;
+      var SnakeYPostion = blockSize * 5;
+
+      var velocityX = 0;
+      var velocityY = 0;
+
+      var snakeBody = [[]];
+
+      var AppleXPostion;
+      var AppleYPostion;
+
+      // when the window loads run this functions
+
+      window.onload = function () {
+        gameCanvas = document.getElementById('gameCanvas');
+
+        gameCanvas.height = rows * blockSize;
+        gameCanvas.width = cols * blockSize;
+
+        drawingObject = gameCanvas.getContext('2d'); //used for drawing on the gameCanvas
+
+        foodPlacement();
+        document.addEventListener('keyup', changeDirection);
+        // reDrawCanvas();
+
+        setInterval(reDrawCanvas, 1000 / 10);
+      };
+
+      function reDrawCanvas() {
+        if (gameOver) {
+          return;
+        }
+        drawingObject.fillStyle = 'black';
+        drawingObject.fillRect(0, 0, gameCanvas.width, gameCanvas.height);
+
+        var strokeGradient = drawingObject.createLinearGradient(
+          0,
+          0,
+          gameCanvas.width,
+          0
+        );
+        strokeGradient.addColorStop(0, '#402dbe');
+        strokeGradient.addColorStop(1, 'red');
+        drawingObject.strokeStyle = strokeGradient;
+
+        var fillGradient = drawingObject.createLinearGradient(
+          0,
+          0,
+          0,
+          gameCanvas.height
+        );
+        fillGradient.addColorStop(0, 'yellow');
+        fillGradient.addColorStop(1, '#1cb142');
+        drawingObject.fillStyle = fillGradient;
+
+        drawingObject.drawImage(
+          appleImg,
+          AppleXPostion,
+          AppleYPostion,
+          blockSize,
+          blockSize
+        );
+
+        let score = document.getElementById('score');
+        let count = parseInt(score.innerText);
+        if (AppleXPostion == SnakeXPostion && AppleYPostion == SnakeYPostion) {
+          snakeBody.push([SnakeXPostion, SnakeYPostion]);
+          count++;
+          score.innerText = count;
+          if (score.innerText == 16) {
+            alert('You Have Won Do You Want To Start Again Click Okay');
+
+            SnakeXPostion = blockSize * 5;
+            SnakeYPostion = blockSize * 5;
+            velocityX = 0;
+            velocityY = 0;
+
+            snakeBody.length = 1;
+
+            score.innerText = 0;
+          }
+          foodPlacement();
+        }
+
+        // Check if the snake goes outside the canvas boundaries
+        if (SnakeXPostion < 0) {
+          SnakeXPostion = gameCanvas.width - blockSize;
+        } else if (SnakeXPostion >= gameCanvas.width) {
+          SnakeXPostion = 0;
+        } else if (SnakeYPostion < 0) {
+          SnakeYPostion = gameCanvas.height - blockSize;
+        } else if (SnakeYPostion >= gameCanvas.height) {
+          SnakeYPostion = 0;
+        }
+
+        for (let i = snakeBody.length - 1; i > 0; i--) {
+          snakeBody[i] = snakeBody[i - 1];
+        }
+
+        if (snakeBody.length) {
+          snakeBody[0] = [SnakeXPostion, SnakeYPostion];
+        }
+        SnakeXPostion += velocityX * blockSize;
+        SnakeYPostion += velocityY * blockSize;
+
+        // Draw the snake and...
+
+        // Draw the snake and the snake body segments using strokeRect
+        drawingObject.lineWidth = 4.5; // Adjust line width to make it thicker or thinner
+        drawingObject.strokeStyle = gradient;
+        drawingObject.strokeRect(
+          SnakeXPostion,
+          SnakeYPostion,
+          blockSize,
+          blockSize
+        );
+        for (let i = 0; i < snakeBody.length; i++) {
+          drawingObject.strokeRect(
+            snakeBody[i][0],
+            snakeBody[i][1],
+            blockSize,
+            blockSize
+          );
+        }
+        // game conditions
+      }
+
+      function changeDirection(e) {
+        if (e.code == 'ArrowUp' && velocityY != 1) {
+          velocityX = 0;
+          velocityY = -1;
+          document.getElementById('upSound').play(); // Play the "up" sound effect
+        } else if (e.code == 'ArrowDown' && velocityY != -1) {
+          velocityX = 0;
+          velocityY = 1;
+          document.getElementById('downSound').play(); // Play the "down" sound effect
+        } else if (e.code == 'ArrowLeft' && velocityX != 1) {
+          velocityX = -1;
+          velocityY = 0;
+          document.getElementById('leftSound').play(); // Play the "left" sound effect
+        } else if (e.code == 'ArrowRight' && velocityX != -1) {
+          velocityX = 1;
+          velocityY = 0;
+          document.getElementById('rightSound').play(); // Play the "right" sound effect
+        }
+      }
+
+      function foodPlacement() {
+        AppleXPostion = Math.floor(Math.random() * cols) * blockSize;
+        AppleYPostion = Math.floor(Math.random() * rows) * blockSize;
+      }
+    </script>
+  </body>
+</html>
