@@ -245,6 +245,27 @@
       }
 
       function changeDirection(e) {
+        var upButton = document.getElementById('upButton');
+        var downButton = document.getElementById('downButton');
+        var leftButton = document.getElementById('leftButton');
+        var rightButton = document.getElementById('rightButton');
+
+        upButton.addEventListener('click', function () {
+          changeDirection({ keyCode: 38 });
+        });
+
+        downButton.addEventListener('click', function () {
+          changeDirection({ keyCode: 40 });
+        });
+
+        leftButton.addEventListener('click', function () {
+          changeDirection({ keyCode: 37 });
+        });
+
+        rightButton.addEventListener('click', function () {
+          changeDirection({ keyCode: 39 });
+        });
+
         if (e.code == 'ArrowUp' && velocityY != 1) {
           velocityX = 0;
           velocityY = -1;
