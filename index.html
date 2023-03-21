@@ -305,18 +305,22 @@
         if (e.code == 'ArrowUp' && velocityY != 1) {
           velocityX = 0;
           velocityY = -1;
+          document.getElementById('downSound').stop();
           document.getElementById('upSound').play(); // Play the "up" sound effect
         } else if (e.code == 'ArrowDown' && velocityY != -1) {
           velocityX = 0;
           velocityY = 1;
+          document.getElementById('upSound').stop();
           document.getElementById('downSound').play(); // Play the "down" sound effect
         } else if (e.code == 'ArrowLeft' && velocityX != 1) {
           velocityX = -1;
           velocityY = 0;
+          document.getElementById('rightSound').stop();
           document.getElementById('leftSound').play(); // Play the "left" sound effect
         } else if (e.code == 'ArrowRight' && velocityX != -1) {
           velocityX = 1;
           velocityY = 0;
+          document.getElementById('leftSound').stop();
           document.getElementById('rightSound').play(); // Play the "right" sound effect
         }
       }
