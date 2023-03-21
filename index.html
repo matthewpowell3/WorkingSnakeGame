@@ -246,6 +246,7 @@
           snakeBody.push([SnakeXPostion, SnakeYPostion]);
           count++;
           score.innerText = count;
+          document.getElementById('upSound').play();
           if (score.innerText == 15) {
             alert('You Have Won Do You Want To Start Again Click Okay');
 
