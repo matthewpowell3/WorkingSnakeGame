@@ -85,9 +85,7 @@
       src="https://www.google.com/logos/fnbx/snake_arcade/v3/apple_00.png"
       style="display: none"
     />
-    <audio autoplay loop>
-      <source src="secondbackgroundmusic.mp3" type="audio/mpeg" />
-    </audio>
+    <audio id="bgMusic" src="secondbackgroundmusic.mp3" autoplay loop></audio>
     <audio id="upSound">
       <source src="snakemove.mp3" type="audio/mp3" />
       <source src="snakemove.ogg" type="audio/ogg" />
@@ -125,8 +123,11 @@
       var AppleYPostion;
 
       // when the window loads run this functions
+      var bgMusic = document.getElementById('bgMusic');
 
       window.onload = function () {
+        bgMusic.play();
+
         gameCanvas = document.getElementById('gameCanvas');
 
         gameCanvas.height = rows * blockSize;
