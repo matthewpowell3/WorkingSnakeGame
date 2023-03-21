@@ -172,6 +172,8 @@
       startButton.addEventListener('click', () => {
         bgMusic.play();
         startButton.style.display = 'none';
+
+        document.getElementById('highScore').play();
       });
 
       window.onload = function () {
@@ -265,8 +267,6 @@
             snakeBody.length = 1;
 
             score.innerText = 0;
-
-            document.getElementById('highScore').play();
 
             startButton.style.display = 'inline';
             bgMusic.pause();
