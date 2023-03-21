@@ -159,8 +159,8 @@
       var startButtonClicked = false;
 
       startButton.addEventListener('click', () => {
+        startButtonClicked = true;
         bgMusic.play();
-        startButton.style.display = 'none';
       });
 
       window.onload = function () {
