@@ -155,10 +155,12 @@
 
       let startButton = document.getElementById('startButton');
       var bgMusic = document.getElementById('bgMusic');
+      let startButtonClicked = false;
 
       startButton.addEventListener('click', () => {
         bgMusic.play();
         startButton.style.display = 'none';
+        startButtonClicked = true;
       });
 
       window.onload = function () {
@@ -200,9 +202,10 @@
       };
 
       function reDrawCanvas() {
-        if (gameOver) {
+        if (!startButtonClicked || gameOver) {
           return;
         }
+
         drawingObject.fillStyle = 'black';
         drawingObject.fillRect(0, 0, gameCanvas.width, gameCanvas.height);
 
