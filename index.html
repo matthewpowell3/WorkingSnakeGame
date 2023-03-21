@@ -51,6 +51,13 @@
         display: none;
       }
 
+      #buttonCantainer {
+        position: absolute;
+        top: 400px;
+        right: 300px;
+        left: 300px;
+      }
+
       #startButton {
         display: inline-block;
         visibility: visible;
@@ -58,13 +65,17 @@
         color: white;
         border: none;
         border-radius: 6px;
-        padding: 10px 20px;
+        padding: 10px 30px;
         cursor: pointer;
         margin: 0px 5px;
       }
 
       #startButton:hover {
         box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+      }
+
+      #startButton:active {
+        display: none;
       }
 
       @media only screen and (max-width: 830px) {
@@ -90,7 +101,9 @@
     <h1>Snake Game</h1>
     <h2>Score:<span id="score">0</span></h2>
     <canvas id="gameCanvas"></canvas>
-    <button id="startButton">Start</button>
+    <div id="buttonCantainer">
+      <button id="startButton">Start</button>
+    </div>
     <div class="buttons">
       <button class="button" id="leftBtn">Left</button>
       <button class="button" id="upBtn">Up</button>
