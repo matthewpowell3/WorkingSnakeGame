@@ -240,7 +240,7 @@
           snakeBody.push([SnakeXPostion, SnakeYPostion]);
           count++;
           score.innerText = count;
-          if (score.innerText == 2) {
+          if (score.innerText == 1) {
             alert('You Have Won Do You Want To Start Again Click Okay');
 
             SnakeXPostion = blockSize * 5;
@@ -253,7 +253,6 @@
             score.innerText = 0;
 
             startButton.style.display = 'inline';
-
             bgMusic.pause();
           }
           foodPlacement();
