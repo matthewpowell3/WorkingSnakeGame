@@ -251,11 +251,13 @@
             snakeBody.length = 1;
 
             score.innerText = 0;
-
-            startButton.style.display = 'inline';
-            bgMusic.pause();
           }
           foodPlacement();
+        }
+
+        if (score.innerText == 2) {
+          startButton.style.display = 'inline';
+          bgMusic.pause();
         }
 
         // Check if the snake goes outside the canvas boundaries
