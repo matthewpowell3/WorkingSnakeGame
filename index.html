@@ -126,12 +126,7 @@
 
       // when the window loads run this functions
 
-      const canvas = document.getElementById('gameCanvas');
-      var bgMusic = document.getElementById('bgMusic');
-
-      canvas.addEventListener('keydown', () => {
-        bgMusic.play();
-      });
+      // const canvas = document.getElementById('gameCanvas');
 
       window.onload = function () {
         gameCanvas = document.getElementById('gameCanvas');
@@ -143,6 +138,12 @@
 
         foodPlacement();
         document.addEventListener('keyup', changeDirection);
+
+        var bgMusic = document.getElementById('bgMusic');
+
+        changeDirection.addEventListener('keyup', () => {
+          bgMusic.play();
+        });
 
         document.getElementById('upBtn').addEventListener('click', function () {
           changeDirection({ code: 'ArrowUp' });
