@@ -86,7 +86,7 @@
       style="display: none"
     />
     <audio id="bgMusic" autoplay loop>
-      <source  src="secondbackgroundmusic.mp3"type="audio/mp3" />
+      <source src="secondbackgroundmusic.mp3" type="audio/mp3" />
     </audio>
     <audio id="upSound">
       <source src="snakemove.mp3" type="audio/mp3" />
@@ -125,11 +125,15 @@
       var AppleYPostion;
 
       // when the window loads run this functions
+
+      const canvas = document.getElementById('gameCanvas');
       var bgMusic = document.getElementById('bgMusic');
 
-      window.onload = function () {
+      canvas.addEventListener('click', () => {
         bgMusic.play();
+      });
 
+      window.onload = function () {
         gameCanvas = document.getElementById('gameCanvas');
 
         gameCanvas.height = rows * blockSize;
