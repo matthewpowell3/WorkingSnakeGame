@@ -252,9 +252,13 @@
 
             score.innerText = 0;
 
-            bgMusic.pause();
+    
           }
           foodPlacement();
+        }
+
+        if (score.innerText == 2) {
+          bgMusic.pause();
         }
 
         // Check if the snake goes outside the canvas boundaries
