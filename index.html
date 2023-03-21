@@ -126,16 +126,15 @@
 
       // when the window loads run this functions
 
-      // const canvas = document.getElementById('gameCanvas');
+      const canvas = document.getElementById('gameCanvas');
+      var bgMusic = document.getElementById('bgMusic');
+
+      canvas.addEventListener('keyup', () => {
+        bgMusic.play();
+      });
 
       window.onload = function () {
         gameCanvas = document.getElementById('gameCanvas');
-
-        var bgMusic = document.getElementById('bgMusic');
-
-        canvas.addEventListener('keyup', () => {
-          bgMusic.play();
-        });
 
         gameCanvas.height = rows * blockSize;
         gameCanvas.width = cols * blockSize;
