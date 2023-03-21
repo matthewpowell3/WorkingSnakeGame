@@ -170,10 +170,9 @@
       var bgMusic = document.getElementById('bgMusic');
 
       startButton.addEventListener('click', () => {
-        bgMusic.play();
-        startButton.style.display = 'none';
-
         document.getElementById('highScore').play();
+        startButton.style.display = 'none';
+        bgMusic.play();
       });
 
       window.onload = function () {
