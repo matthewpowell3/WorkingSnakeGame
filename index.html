@@ -251,13 +251,12 @@
             snakeBody.length = 1;
 
             score.innerText = 0;
-
-    
           }
           foodPlacement();
         }
 
         if (score.innerText == 2) {
+          startButton.style.display = 'inline-block';
           bgMusic.pause();
         }
 
