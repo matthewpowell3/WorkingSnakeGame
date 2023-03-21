@@ -105,6 +105,7 @@
       <source src="snakemove.mp3" type="audio/mp3" />
       <source src="snakemove.ogg" type="audio/ogg" />
     </audio>
+    <button id="startButton">Start</button>
     <script>
       var blockSize = 25;
       var rows = 20;
@@ -127,10 +128,10 @@
 
       // when the window loads run this functions
 
-      let canvas = document.getElementById('gameCanvas');
+      let startButton = document.getElementById('startButton');
       var bgMusic = document.getElementById('bgMusic');
 
-      canvas.addEventListener('keyup', () => {
+      startButton.addEventListener('keyup', () => {
         bgMusic.play();
       });
 
