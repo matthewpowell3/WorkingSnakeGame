@@ -155,11 +155,10 @@
 
       let startButton = document.getElementById('startButton');
       var bgMusic = document.getElementById('bgMusic');
-      // start button clicked flag
 
       startButton.addEventListener('click', () => {
-        startButton.style.display = 'none';
         bgMusic.play();
+        startButton.style.display = 'none';
       });
 
       window.onload = function () {
@@ -201,6 +200,9 @@
       };
 
       function reDrawCanvas() {
+        if (gameOver) {
+          return;
+        }
         drawingObject.fillStyle = 'black';
         drawingObject.fillRect(0, 0, gameCanvas.width, gameCanvas.height);
 
@@ -238,7 +240,7 @@
           snakeBody.push([SnakeXPostion, SnakeYPostion]);
           count++;
           score.innerText = count;
-          if (score.innerText == 16) {
+          if (score.innerText == 2) {
             alert('You Have Won Do You Want To Start Again Click Okay');
 
             SnakeXPostion = blockSize * 5;
@@ -250,7 +252,6 @@
 
             score.innerText = 0;
 
-            startButton.style.display = 'inline';
             bgMusic.pause();
           }
           foodPlacement();
