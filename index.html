@@ -156,10 +156,9 @@
       let startButton = document.getElementById('startButton');
       var bgMusic = document.getElementById('bgMusic');
       // start button clicked flag
-      var startButtonClicked = false;
 
       startButton.addEventListener('click', () => {
-        startButtonClicked = true;
+        startButton.style.display = 'none';
         bgMusic.play();
       });
 
