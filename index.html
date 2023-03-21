@@ -232,21 +232,6 @@
         fillGradient.addColorStop(1, '#1cb142');
         drawingObject.fillStyle = fillGradient;
 
-        let appleImg = document.getElementById('appleImg');
-        let bananaImg = document.getElementById('bananaImg');
-
-        function switchImage() {
-          if (appleImg.style.display === 'none') {
-            appleImg.style.display = 'block';
-            bananaImg.style.display = 'none';
-          } else {
-            appleImg.style.display = 'none';
-            bananaImg.style.display = 'block';
-          }
-        }
-
-        // Call switchImage() function when you want to switch the image
-
         drawingObject.drawImage(
           appleImg,
           AppleXPostion,
